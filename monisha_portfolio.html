@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monisha Shankar — Data Scientist & AI Builder</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0e0b07;
+    --paper: #faf7f2;
+    --cream: #f2ede3;
+    --amber: #c8612a;
+    --amber-light: #e8855a;
+    --amber-pale: #fceee5;
+    --teal: #1d7a6e;
+    --teal-light: #e3f4f1;
+    --muted: #7a6f62;
+    --border: rgba(14,11,7,0.10);
+    --mono: 'DM Mono', monospace;
+    --serif: 'Playfair Display', serif;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* Noise texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(250,247,242,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--amber); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 6rem 4rem;
+    gap: 4rem;
+    position: relative;
+  }
+
+  .hero-bg-circle {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,97,42,0.08) 0%, transparent 70%);
+    right: -100px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--amber);
+    border: 1px solid rgba(200,97,42,0.3);
+    padding: 0.3rem 0.9rem;
+    border-radius: 100px;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.08em;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--amber);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.7); }
+  }
+
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--amber);
+  }
+
+  .hero-desc {
+    font-size: 1.05rem;
+    color: var(--muted);
+    line-height: 1.8;
+    max-width: 440px;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--ink);
+    color: var(--paper);
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 0.85rem 1.8rem;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+    letter-spacing: 0.02em;
+  }
+
+  .btn-primary:hover { background: var(--amber); transform: translateY(-2px); }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    color: var(--ink);
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 0.85rem 1.8rem;
+    border-radius: 100px;
+    border: 1px solid rgba(14,11,7,0.2);
+    text-decoration: none;
+    transition: border-color 0.2s, transform 0.15s;
+    letter-spacing: 0.02em;
+  }
+
+  .btn-outline:hover { border-color: var(--amber); color: var(--amber); transform: translateY(-2px); }
+
+  .hero-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .stat-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem 1.8rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(14,11,7,0.08);
+  }
+
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--amber), var(--amber-light));
+  }
+
+  .stat-num {
+    font-family: var(--serif);
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .stat-label {
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  .stat-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  /* SECTION TEMPLATE */
+  section {
+    padding: 6rem 6rem;
+    position: relative;
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    max-width: 60px;
+    height: 1px;
+    background: var(--amber);
+    opacity: 0.4;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 3.5rem;
+  }
+
+  /* SKILLS */
+  #skills { background: var(--cream); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .skill-group {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.75rem;
+    transition: transform 0.2s;
+  }
+
+  .skill-group:hover { transform: translateY(-3px); }
+
+  .skill-group-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--amber-pale);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+
+  .skill-group h3 {
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 0.8rem;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .skill-tag {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+    background: var(--cream);
+    border: 1px solid var(--border);
+    padding: 0.25rem 0.65rem;
+    border-radius: 100px;
+    letter-spacing: 0.02em;
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .project-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.25s, box-shadow 0.25s;
+    cursor: default;
+  }
+
+  .project-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 60px rgba(14,11,7,0.10);
+  }
+
+  .project-card.featured {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .project-accent {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+  }
+
+  .accent-amber { background: linear-gradient(90deg, var(--amber), var(--amber-light)); }
+  .accent-teal { background: linear-gradient(90deg, var(--teal), #39b6a6); }
+  .accent-dark { background: linear-gradient(90deg, #2c2416, #7a6f62); }
+
+  .project-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.75rem;
+    border-radius: 100px;
+    margin-bottom: 1.25rem;
+  }
+
+  .chip-amber { background: var(--amber-pale); color: var(--amber); }
+  .chip-teal { background: var(--teal-light); color: var(--teal); }
+  .chip-dark { background: var(--cream); color: var(--muted); }
+
+  .project-title {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.25;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
+  }
+
+  .project-desc {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    font-weight: 300;
+  }
+
+  .project-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .stack-tag {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--ink);
+    background: var(--cream);
+    border: 1px solid var(--border);
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+  }
+
+  .project-highlights {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .project-highlights li {
+    font-size: 0.85rem;
+    color: var(--muted);
+    padding-left: 1.25rem;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .project-highlights li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--amber);
+    font-size: 0.75rem;
+  }
+
+  .project-visual {
+    background: var(--cream);
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+  }
+
+  .flow-diagram {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .flow-node {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .flow-node .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .dot-amber { background: var(--amber); }
+  .dot-teal { background: var(--teal); }
+  .dot-dark { background: var(--ink); }
+  .dot-muted { background: var(--muted); }
+
+  .flow-arrow {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--amber);
+    padding-left: 1rem;
+    opacity: 0.6;
+  }
+
+  /* EXPERIENCE */
+  #experience { background: var(--cream); }
+
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--amber), transparent);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 3rem;
+    padding-left: 2rem;
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: -2.4rem;
+    top: 0.35rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--amber);
+    border: 2px solid var(--paper);
+    box-shadow: 0 0 0 3px rgba(200,97,42,0.2);
+  }
+
+  .timeline-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .timeline-company {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .timeline-period {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+    background: white;
+    border: 1px solid var(--border);
+    padding: 0.2rem 0.7rem;
+    border-radius: 100px;
+  }
+
+  .timeline-role {
+    font-size: 0.85rem;
+    color: var(--amber);
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.02em;
+  }
+
+  .timeline-desc {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.75;
+    font-weight: 300;
+  }
+
+  /* CONTACT */
+  #contact {
+    background: var(--ink);
+    color: white;
+  }
+
+  #contact .section-label { color: var(--amber-light); }
+  #contact .section-label::after { background: var(--amber-light); }
+  #contact .section-title { color: white; }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .contact-desc {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.8;
+    font-weight: 300;
+    margin-bottom: 2rem;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 400;
+    padding: 1rem 1.25rem;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .contact-link:hover {
+    border-color: var(--amber);
+    background: rgba(200,97,42,0.1);
+  }
+
+  .contact-link-icon {
+    width: 36px;
+    height: 36px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .contact-right {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 2rem;
+  }
+
+  .open-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: rgba(200,97,42,0.15);
+    border: 1px solid rgba(200,97,42,0.35);
+    color: var(--amber-light);
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    padding: 0.5rem 1rem;
+    border-radius: 100px;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.06em;
+  }
+
+  .open-badge::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--amber-light);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  .roles-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .roles-list li {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.7);
+    padding-left: 1.25rem;
+    position: relative;
+  }
+
+  .roles-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--amber-light);
+    font-size: 0.8rem;
+  }
+
+  .location-note {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.05em;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding: 1.5rem 6rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer span {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.06em;
+  }
+
+  /* ANIMATIONS */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 7rem 2rem 3rem; }
+    .hero-stats { display: grid; grid-template-columns: 1fr 1fr; }
+    .hero-bg-circle { display: none; }
+    section { padding: 4rem 2rem; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .project-card.featured { grid-column: auto; grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    footer { padding: 1.5rem 2rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+
+  @media (max-width: 580px) {
+    .skills-grid { grid-template-columns: 1fr; }
+    .stat-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">Monisha Shankar</a>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#dashboards">Dashboards</a></li>
+    <li><a href="#analysis">Analysis</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <div class="hero-tag">Available for work · Remote & Goa</div>
+    <h1>Data Scientist<br>&amp; <em>AI Builder</em></h1>
+    <p class="hero-desc">
+      I turn business problems into dashboards, AI chatbots, and automation workflows — 3+ years delivering measurable impact across retail, airline, and product analytics.
+    </p>
+    <div class="hero-cta">
+      <a href="mailto:monishashantha@gmail.com" class="btn-primary">Get in touch →</a>
+      <a href="https://linkedin.com/in/monisha-shankar-05b545212" target="_blank" class="btn-outline">LinkedIn ↗</a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat-row">
+      <div class="stat-card fade-up">
+        <div class="stat-num">3+</div>
+        <div class="stat-label">Years experience</div>
+      </div>
+      <div class="stat-card fade-up">
+        <div class="stat-num">8+</div>
+        <div class="stat-label">Power BI dashboards</div>
+      </div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-card fade-up">
+        <div class="stat-num">2.5%</div>
+        <div class="stat-label">Sales uplift delivered</div>
+      </div>
+      <div class="stat-card fade-up">
+        <div class="stat-num">25+</div>
+        <div class="stat-label">Students mentored</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-bg-circle"></div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">What I work with</div>
+  <h2 class="section-title">Skills & Stack</h2>
+
+  <div class="skills-grid">
+    <div class="skill-group fade-up">
+      <div class="skill-group-icon">📊</div>
+      <h3>Data & Analytics</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">SQL</span>
+        <span class="skill-tag">Power BI</span>
+        <span class="skill-tag">Pandas</span>
+        <span class="skill-tag">NumPy</span>
+        <span class="skill-tag">EDA</span>
+        <span class="skill-tag">KPI Design</span>
+        <span class="skill-tag">Excel</span>
+      </div>
+    </div>
+    <div class="skill-group fade-up">
+      <div class="skill-group-icon">🤖</div>
+      <h3>AI & Chatbots</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">Gemini API</span>
+        <span class="skill-tag">Groq API</span>
+        <span class="skill-tag">OpenRouter</span>
+        <span class="skill-tag">LLM Integration</span>
+        <span class="skill-tag">AI Chatbots</span>
+        <span class="skill-tag">FastAPI</span>
+        <span class="skill-tag">REST APIs</span>
+      </div>
+    </div>
+    <div class="skill-group fade-up">
+      <div class="skill-group-icon">⚙️</div>
+      <h3>Automation & Apps</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">UiPath</span>
+        <span class="skill-tag">Streamlit</span>
+        <span class="skill-tag">Reflex</span>
+        <span class="skill-tag">API Integration</span>
+        <span class="skill-tag">Workflow Automation</span>
+        <span class="skill-tag">Git</span>
+      </div>
+    </div>
+    <div class="skill-group fade-up">
+      <div class="skill-group-icon">🎯</div>
+      <h3>Product & Process</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">Product Analytics</span>
+        <span class="skill-tag">User Stories</span>
+        <span class="skill-tag">Agile / Scrum</span>
+        <span class="skill-tag">Stakeholder Mgmt</span>
+        <span class="skill-tag">Requirement Gathering</span>
+      </div>
+    </div>
+    <div class="skill-group fade-up">
+      <div class="skill-group-icon">🌐</div>
+      <h3>Languages</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">English</span>
+        <span class="skill-tag">Hindi</span>
+        <span class="skill-tag">Kannada</span>
+      </div>
+    </div>
+    <div class="skill-group fade-up">
+      <div class="skill-group-icon">📚</div>
+      <h3>Familiar With</h3>
+      <div class="skill-tags">
+        <span class="skill-tag">ML Basics</span>
+        <span class="skill-tag">Matplotlib</span>
+        <span class="skill-tag">Seaborn</span>
+        <span class="skill-tag">DBMS</span>
+        <span class="skill-tag">Statistical Analysis</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">Things I've built</div>
+  <h2 class="section-title">Projects</h2>
+
+  <div class="projects-grid">
+
+    <!-- FEATURED: APAC Sales Agent -->
+    <div class="project-card featured fade-up">
+      <div class="project-accent accent-amber"></div>
+      <div>
+        <div class="project-chip chip-amber">⭐ Featured Project</div>
+        <h3 class="project-title">APAC Sales Intelligence Agent</h3>
+        <p class="project-desc">
+          A full AI-powered sales analytics platform built for APAC region. Sales reps can ask natural language questions — "who's behind quota?", "top 5 prospects this quarter?" — and get instant, structured answers from live CSV data. Integrated with UiPath to auto-trigger workflows based on query intent.
+        </p>
+        <div class="project-stack">
+          <span class="stack-tag">Streamlit</span>
+          <span class="stack-tag">Python</span>
+          <span class="stack-tag">Groq API</span>
+          <span class="stack-tag">OpenRouter</span>
+          <span class="stack-tag">UiPath</span>
+          <span class="stack-tag">FastAPI</span>
+          <span class="stack-tag">Pandas</span>
+          <span class="stack-tag">Chart.js</span>
+        </div>
+        <ul class="project-highlights">
+          <li>Natural language queries over sales data — intent parsing, instant structured answers</li>
+          <li>10+ query intents: attainment, top prospects, country breakdown, funnel analysis</li>
+          <li>Auto-triggers 5 UiPath workflows based on query type</li>
+          <li>Smart caching — avoids redundant LLM calls, 7-day contact cache</li>
+          <li>One-click visualise button generates Chart.js charts from any answer</li>
+        </ul>
+      </div>
+      <div class="project-visual">
+        <p style="font-family: var(--mono); font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1rem;">System Flow</p>
+        <div class="flow-diagram">
+          <div class="flow-node"><div class="dot dot-amber"></div>User asks in plain English</div>
+          <div class="flow-arrow">↓ LLM intent parser</div>
+          <div class="flow-node"><div class="dot dot-teal"></div>Query routed to correct handler</div>
+          <div class="flow-arrow">↓ CSV data + scoring</div>
+          <div class="flow-node"><div class="dot dot-dark"></div>Structured HTML answer rendered</div>
+          <div class="flow-arrow">↓ if triggered</div>
+          <div class="flow-node"><div class="dot dot-muted"></div>UiPath workflow auto-fired</div>
+          <div class="flow-arrow">↓ optional</div>
+          <div class="flow-node"><div class="dot dot-amber"></div>Chart.js visualisation generated</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shop Intel Agent -->
+    <div class="project-card fade-up">
+      <div class="project-accent accent-teal"></div>
+      <div class="project-chip chip-teal">AI + FastAPI</div>
+      <h3 class="project-title">Shop Intel — Retail AI Agent</h3>
+      <p class="project-desc">
+        AI-powered retail intelligence API for FMCG brands. Given a shop, SKU, and city — it analyses demand trends, Blinkit rankings, and 7-day sales to generate an opportunity score and recommended action for field sales reps. Built with Gemini 2.0 Flash as primary, Groq Llama as fallback.
+      </p>
+      <div class="project-stack">
+        <span class="stack-tag">FastAPI</span>
+        <span class="stack-tag">Gemini API</span>
+        <span class="stack-tag">Groq API</span>
+        <span class="stack-tag">OpenStreetMap API</span>
+        <span class="stack-tag">Python</span>
+        <span class="stack-tag">Pydantic</span>
+      </div>
+      <ul class="project-highlights">
+        <li>Dual LLM setup — Gemini primary, Groq fallback, rule-based degradation</li>
+        <li>Fetches real shop data from OpenStreetMap by pincode + city</li>
+        <li>JWT auth, rate limiting, multi-layer caching (TTL per endpoint)</li>
+        <li>Opportunity score 0–10 with specific recommended action per shop</li>
+      </ul>
+    </div>
+
+    <!-- Lead Scoring App -->
+    <div class="project-card fade-up">
+      <div class="project-accent accent-dark"></div>
+      <div class="project-chip chip-dark">Reflex App</div>
+      <h3 class="project-title">Lead Scoring Web App</h3>
+      <p class="project-desc">
+        A complete lead scoring system built in pure Python using Reflex. Drag-and-drop CSV upload, real-time scoring across 10 factors, HIGH/MEDIUM/LOW dashboard, and one-click export. Built for a US electrical contractor — no coding needed to use.
+      </p>
+      <div class="project-stack">
+        <span class="stack-tag">Reflex</span>
+        <span class="stack-tag">Python</span>
+        <span class="stack-tag">Pandas</span>
+        <span class="stack-tag">Modular Scorers</span>
+        <span class="stack-tag">CSV Processing</span>
+      </div>
+      <ul class="project-highlights">
+        <li>6 modular scoring modules — email, phone, distance, property, financial, behavioral</li>
+        <li>Scores 200 leads in ~2 seconds with normalized 0–100 output</li>
+        <li>Full web UI — no terminal, no code, drag-and-drop to use</li>
+        <li>Configurable weights via single config file</li>
+      </ul>
+    </div>
+
+    <!-- UiPath Automation Suite -->
+    <div class="project-card fade-up">
+      <div class="project-accent accent-amber"></div>
+      <div class="project-chip chip-amber">UiPath + AI</div>
+      <h3 class="project-title">Sales Automation Workflow Suite</h3>
+      <p class="project-desc">
+        5-workflow UiPath automation suite for APAC sales operations. From daily briefings to opportunity scoring to automated email sending — all triggered from a Streamlit frontend via UiPath Orchestrator API.
+      </p>
+      <div class="project-stack">
+        <span class="stack-tag">UiPath</span>
+        <span class="stack-tag">Streamlit</span>
+        <span class="stack-tag">REST API</span>
+        <span class="stack-tag">JWT Auth</span>
+        <span class="stack-tag">Groq AI</span>
+        <span class="stack-tag">CSV</span>
+      </div>
+      <ul class="project-highlights">
+        <li>WF1: Daily performance briefing from CSV data</li>
+        <li>WF2: Contact fetcher + automated email sender</li>
+        <li>WF3: Opportunity scoring and ranking</li>
+        <li>WF4: AI-powered opportunity analysis via Groq</li>
+        <li>WF5: Opportunity summary email automation</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- DASHBOARDS -->
+<section id="dashboards" style="background: var(--cream);">
+  <div class="section-label">Power BI work</div>
+  <h2 class="section-title">Dashboards</h2>
+
+  <p style="font-size:0.95rem; color:var(--muted); font-weight:300; line-height:1.8; max-width:620px; margin-bottom:3rem;">
+    8+ real-time dashboards built across retail, airline, supply chain, and product domains — tracking 20+ business and product KPIs for operational and strategic decision-making.
+  </p>
+
+  <div class="projects-grid">
+
+    <div class="project-card fade-up">
+      <div class="project-accent accent-amber"></div>
+      <div class="project-chip chip-amber">Retail / FMCG</div>
+      <h3 class="project-title">Retail Distribution & Sales Dashboard</h3>
+      <p class="project-desc">
+        Built for Mu Sigma client — tracked distributor performance, territory-level revenue, and product sell-through rates. The analysis behind this dashboard contributed to a 2.5% sales uplift and 4% inventory reduction.
+      </p>
+      <div class="project-stack">
+        <span class="stack-tag">Power BI</span>
+        <span class="stack-tag">SQL</span>
+        <span class="stack-tag">DAX</span>
+        <span class="stack-tag">Python</span>
+      </div>
+      <ul class="project-highlights">
+        <li>DMA-level distribution strategy optimisation</li>
+        <li>Real-time sell-through and inventory gap tracking</li>
+        <li>Territory performance vs target with drill-through</li>
+      </ul>
+      <div style="margin-top:1.5rem; background:var(--cream); border:1.5px dashed rgba(200,97,42,0.3); border-radius:12px; padding:1.25rem; text-align:center;">
+        <p style="font-family:var(--mono); font-size:0.72rem; color:var(--amber); letter-spacing:0.08em; text-transform:uppercase;">📸 Screenshot coming soon</p>
+        <p style="font-size:0.78rem; color:var(--muted); margin-top:0.3rem;">Replace this block with your dashboard image</p>
+      </div>
+    </div>
+
+    <div class="project-card fade-up">
+      <div class="project-accent accent-teal"></div>
+      <div class="project-chip chip-teal">Airlines / Operations</div>
+      <h3 class="project-title">Airline Operations Performance Dashboard</h3>
+      <p class="project-desc">
+        Operational KPI dashboard for airline domain — tracking on-time performance, route efficiency, turnaround times, and capacity utilisation across multiple routes and hubs.
+      </p>
+      <div class="project-stack">
+        <span class="stack-tag">Power BI</span>
+        <span class="stack-tag">SQL</span>
+        <span class="stack-tag">DAX</span>
+      </div>
+      <ul class="project-highlights">
+        <li>Multi-hub operational KPI tracking in real time</li>
+        <li>Route-level performance benchmarking</li>
+        <li>Delay root cause categorisation and trending</li>
+      </ul>
+      <div style="margin-top:1.5rem; background:var(--teal-light); border:1.5px dashed rgba(29,122,110,0.3); border-radius:12px; padding:1.25rem; text-align:center;">
+        <p style="font-family:var(--mono); font-size:0.72rem; color:var(--teal); letter-spacing:0.08em; text-transform:uppercase;">📸 Screenshot coming soon</p>
+        <p style="font-size:0.78rem; color:var(--muted); margin-top:0.3rem;">Replace this block with your dashboard image</p>
+      </div>
+    </div>
+
+    <div class="project-card fade-up">
+      <div class="project-accent accent-dark"></div>
+      <div class="project-chip chip-dark">Supply Chain / Manufacturing</div>
+      <h3 class="project-title">Supply Chain & Manufacturing Reporting</h3>
+      <p class="project-desc">
+        End-to-end supply chain visibility dashboard — from raw material procurement through production to dispatch. Helped operations teams identify bottlenecks and reduce reporting time.
+      </p>
+      <div class="project-stack">
+        <span class="stack-tag">Power BI</span>
+        <span class="stack-tag">SQL</span>
+        <span class="stack-tag">Excel</span>
+        <span class="stack-tag">DAX</span>
+      </div>
+      <ul class="project-highlights">
+        <li>Procurement-to-dispatch pipeline tracking</li>
+        <li>Production yield and defect rate monitoring</li>
+        <li>Automated reporting replacing manual Excel processes</li>
+      </ul>
+      <div style="margin-top:1.5rem; background:var(--cream); border:1.5px dashed rgba(14,11,7,0.15); border-radius:12px; padding:1.25rem; text-align:center;">
+        <p style="font-family:var(--mono); font-size:0.72rem; color:var(--muted); letter-spacing:0.08em; text-transform:uppercase;">📸 Screenshot coming soon</p>
+        <p style="font-size:0.78rem; color:var(--muted); margin-top:0.3rem;">Replace this block with your dashboard image</p>
+      </div>
+    </div>
+
+    <div class="project-card fade-up">
+      <div class="project-accent accent-amber"></div>
+      <div class="project-chip chip-amber">Microsoft (Mu Sigma)</div>
+      <h3 class="project-title">Microsoft CMD — Teams Device Tracking</h3>
+      <p class="project-desc">
+        Built for Microsoft client at Mu Sigma — tracked Teams-certified device adoption, usage metrics, and deployment status across enterprise accounts globally.
+      </p>
+      <div class="project-stack">
+        <span class="stack-tag">Power BI</span>
+        <span class="stack-tag">SQL</span>
+        <span class="stack-tag">Python</span>
+        <span class="stack-tag">DAX</span>
+      </div>
+      <ul class="project-highlights">
+        <li>Device adoption funnel across enterprise segments</li>
+        <li>Region-level deployment tracking and gap analysis</li>
+        <li>Usage trend monitoring with automated refresh</li>
+      </ul>
+      <div style="margin-top:1.5rem; background:var(--cream); border:1.5px dashed rgba(200,97,42,0.3); border-radius:12px; padding:1.25rem; text-align:center;">
+        <p style="font-family:var(--mono); font-size:0.72rem; color:var(--amber); letter-spacing:0.08em; text-transform:uppercase;">📸 Screenshot coming soon</p>
+        <p style="font-size:0.78rem; color:var(--muted); margin-top:0.3rem;">Replace this block with your dashboard image</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- DATA ANALYSIS -->
+<section id="analysis">
+  <div class="section-label">Analytics work</div>
+  <h2 class="section-title">Data Analysis Projects</h2>
+
+  <div class="projects-grid">
+
+    <!-- Product KPI Framework -->
+    <div class="project-card featured fade-up">
+      <div class="project-accent accent-teal"></div>
+      <div>
+        <div class="project-chip chip-teal">Dsights · Product Analytics</div>
+        <h3 class="project-title">Web & Mobile App KPI Framework</h3>
+        <p class="project-desc">
+          Defined and built the full KPI framework for Dsights' web and mobile analytics products. Went beyond just tracking metrics — owned the product thinking behind what to measure, why it matters, and how to present it to business stakeholders.
+        </p>
+        <div class="project-stack">
+          <span class="stack-tag">Power BI</span>
+          <span class="stack-tag">Python</span>
+          <span class="stack-tag">SQL</span>
+          <span class="stack-tag">Product Analytics</span>
+          <span class="stack-tag">User Stories</span>
+          <span class="stack-tag">Agile</span>
+        </div>
+        <ul class="project-highlights">
+          <li>Defined 20+ product and business KPIs from scratch</li>
+          <li>Wrote 30+ user stories bridging engineering and business teams</li>
+          <li>Mobile app engagement & retention analytics — DAU, MAU, churn, session depth</li>
+          <li>Acted as Product Owner through sprint delivery end-to-end</li>
+          <li>Presented KPI findings directly to stakeholders for strategic decisions</li>
+        </ul>
+      </div>
+      <div class="project-visual">
+        <p style="font-family: var(--mono); font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1rem;">KPI Categories Covered</p>
+        <div class="flow-diagram">
+          <div class="flow-node"><div class="dot dot-amber"></div>Acquisition — installs, signups, source</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-node"><div class="dot dot-teal"></div>Activation — onboarding, first action</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-node"><div class="dot dot-dark"></div>Engagement — DAU / MAU, session depth</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-node"><div class="dot dot-muted"></div>Retention — D7, D30, churn rate</div>
+          <div class="flow-arrow">↓</div>
+          <div class="flow-node"><div class="dot dot-amber"></div>Revenue — conversion, LTV, ARPU</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EDA Framework -->
+    <div class="project-card fade-up">
+      <div class="project-accent accent-amber"></div>
+      <div class="project-chip chip-amber">Streamlit Tool</div>
+      <h3 class="project-title">Automated EDA Framework</h3>
+      <p class="project-desc">
+        A reusable Streamlit app that automates the entire exploratory data analysis workflow. Upload any CSV (or connect Snowflake / URL) and get instant profiling, outlier detection, distribution plots, and data type conversion — no code needed.
+      </p>
+      <div class="project-stack">
+        <span class="stack-tag">Streamlit</span>
+        <span class="stack-tag">Python</span>
+        <span class="stack-tag">Pandas</span>
+        <span class="stack-tag">Seaborn</span>
+        <span class="stack-tag">Matplotlib</span>
+        <span class="stack-tag">Snowflake</span>
+        <span class="stack-tag">NumPy</span>
+      </div>
+      <ul class="project-highlights">
+        <li>3 data sources — local CSV, Snowflake connector, URL</li>
+        <li>Auto-detects granular level (primary key) across column combinations</li>
+        <li>IQR-based outlier detection with box plots and % flagged</li>
+        <li>Numerical, categorical, and date column profiling in one click</li>
+        <li>Side-by-side comparison of two datasets with column-level diffing</li>
+        <li>In-app data type conversion (int, float, object, datetime)</li>
+      </ul>
+    </div>
+
+    <!-- Retail Distribution Analysis -->
+    <div class="project-card fade-up">
+      <div class="project-accent accent-dark"></div>
+      <div class="project-chip chip-dark">Mu Sigma · Retail</div>
+      <h3 class="project-title">DMA Optimisation — Retail Distribution Analysis</h3>
+      <p class="project-desc">
+        Deep data analysis of retail distribution across Designated Market Areas for a large FMCG client. Identified underperforming territories, optimised product placement strategy, and quantified the revenue impact of distribution changes.
+      </p>
+      <div class="project-stack">
+        <span class="stack-tag">Python</span>
+        <span class="stack-tag">SQL</span>
+        <span class="stack-tag">Pandas</span>
+        <span class="stack-tag">Statistical Analysis</span>
+        <span class="stack-tag">Power BI</span>
+      </div>
+      <ul class="project-highlights">
+        <li>Analysed 500K+ row retail transaction dataset</li>
+        <li>Territory-level gap analysis across 50+ DMAs</li>
+        <li>Delivered 2.5% sales uplift and 4% inventory reduction</li>
+        <li>Automated EDA pipeline using Python + Streamlit QC tool</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">Where I've worked</div>
+  <h2 class="section-title">Experience</h2>
+
+  <div class="timeline">
+
+    <div class="timeline-item fade-up">
+      <div class="timeline-dot"></div>
+      <div class="timeline-meta">
+        <span class="timeline-company">Dsights</span>
+        <span class="timeline-period">Jun 2024 – Present</span>
+      </div>
+      <div class="timeline-role">Data Scientist — Analytics, Automation & Product</div>
+      <p class="timeline-desc">
+        Working at a startup means wearing many hats. I went from building Power BI dashboards to acting as Product Owner — writing user stories, running sprint reviews, and aligning engineering, UI/UX, and business teams. Built AI chatbot frontends using Streamlit and Reflex, integrated Gemini and Groq APIs, and created automation workflows with UiPath. Worked across retail, manufacturing, airline, and product analytics domains.
+      </p>
+    </div>
+
+    <div class="timeline-item fade-up">
+      <div class="timeline-dot"></div>
+      <div class="timeline-meta">
+        <span class="timeline-company">Mu Sigma</span>
+        <span class="timeline-period">Nov 2022 – Feb 2024</span>
+      </div>
+      <div class="timeline-role">Decision Scientist / Data Analyst</div>
+      <p class="timeline-desc">
+        My first exposure to how data actually works in a client-facing environment. Optimised retail distribution strategy delivering 2.5% sales increase and 4% inventory reduction. Built KPI dashboards, automated EDA workflows with Streamlit, and refactored Python and SQL pipelines for performance. Worked directly with clients on Microsoft and retail accounts.
+      </p>
+    </div>
+
+    <div class="timeline-item fade-up">
+      <div class="timeline-dot"></div>
+      <div class="timeline-meta">
+        <span class="timeline-company">Career Redefine</span>
+        <span class="timeline-period">Oct 2025 – Present</span>
+      </div>
+      <div class="timeline-role">Data Science Mentor (Part-time)</div>
+      <p class="timeline-desc">
+        Mentoring 25+ students through project-based learning in Python, SQL, Power BI, and Excel. Helping career transitioners build portfolios and prepare for interviews — something I know a thing or two about.
+      </p>
+    </div>
+
+    <div class="timeline-item fade-up">
+      <div class="timeline-dot"></div>
+      <div class="timeline-meta">
+        <span class="timeline-company">School & Lecturing</span>
+        <span class="timeline-period">Before 2022</span>
+      </div>
+      <div class="timeline-role">Teacher → Data Scientist</div>
+      <p class="timeline-desc">
+        Started my career as a school teacher, then as a lecturer — before deciding to take the leap into data science. Completed an Executive PG in Data Science from IIIT Bangalore and never looked back.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Let's talk</div>
+  <h2 class="section-title">Open to Work</h2>
+
+  <div class="contact-grid">
+    <div>
+      <p class="contact-desc">
+        I'm actively looking for my next role — full-time, contract, or freelance. If your team needs someone who builds things that actually get used, let's talk.
+      </p>
+      <div class="contact-links">
+        <a href="mailto:monishashantha@gmail.com" class="contact-link">
+          <div class="contact-link-icon">✉</div>
+          monishashantha@gmail.com
+        </a>
+        <a href="https://linkedin.com/in/monisha-shankar-05b545212" target="_blank" class="contact-link">
+          <div class="contact-link-icon">in</div>
+          linkedin.com/in/monisha-shankar-05b545212
+        </a>
+        <a href="https://github.com/Monishsm" target="_blank" class="contact-link">
+          <div class="contact-link-icon">⌥</div>
+          github.com/Monishsm
+        </a>
+      </div>
+    </div>
+
+    <div class="contact-right">
+      <div class="open-badge">Open to Work</div>
+      <p style="font-size: 0.9rem; color: rgba(255,255,255,0.55); margin-bottom: 1.2rem; font-weight: 300; line-height: 1.7;">
+        Roles I'm looking for:
+      </p>
+      <ul class="roles-list">
+        <li>Data Analyst</li>
+        <li>BI Developer / Power BI Developer</li>
+        <li>AI & Automation Engineer</li>
+        <li>Product Analyst</li>
+        <li>Freelance Data / AI projects</li>
+      </ul>
+      <p class="location-note">📍 Goa, India &nbsp;·&nbsp; Remote preferred &nbsp;·&nbsp; Open to hybrid</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Monisha Shankar · 2025</span>
+  <span>Data Scientist & AI Builder · Goa, India</span>
+</footer>
+
+<script>
+  // Fade-up on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Stagger hero stats
+  document.querySelectorAll('.hero-stats .stat-card').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 0.1}s`;
+    setTimeout(() => el.classList.add('visible'), 300 + i * 120);
+  });
+</script>
+</body>
+</html>
