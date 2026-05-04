@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monisha Shankar — Data Scientist & AI Builder</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0e0b07;--paper:#faf7f2;--cream:#f2ede3;
+  --amber:#c8612a;--amber-light:#e8855a;--amber-pale:#fceee5;
+  --teal:#1d7a6e;--teal-light:#e3f4f1;
+  --muted:#7a6f62;--border:rgba(14,11,7,0.10);
+  --mono:'DM Mono',monospace;--serif:'Playfair Display',serif;--sans:'DM Sans',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);font-size:16px;line-height:1.7;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:0.6}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 2.5rem;display:flex;justify-content:space-between;align-items:center;background:rgba(250,247,242,0.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:var(--serif);font-size:1.1rem;font-weight:700;color:var(--ink);text-decoration:none;letter-spacing:-0.02em}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:0.82rem;font-weight:500;color:var(--muted);text-decoration:none;letter-spacing:0.06em;text-transform:uppercase;transition:color 0.2s;cursor:pointer;user-select:none}
+.nav-links a:hover{color:var(--amber)}
+
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:8rem 6rem 4rem;gap:4rem;position:relative}
+.hero-bg-circle{position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(200,97,42,0.08) 0%,transparent 70%);right:-100px;top:50%;transform:translateY(-50%);pointer-events:none}
+.hero-tag{display:inline-flex;align-items:center;gap:0.5rem;font-family:var(--mono);font-size:0.72rem;color:var(--amber);border:1px solid rgba(200,97,42,0.3);padding:0.3rem 0.9rem;border-radius:100px;margin-bottom:1.5rem;letter-spacing:0.08em}
+.hero-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--amber);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.7)}}
+.hero h1{font-family:var(--serif);font-size:clamp(2.8rem,5vw,4.5rem);font-weight:900;line-height:1.05;letter-spacing:-0.03em;color:var(--ink);margin-bottom:1.5rem}
+.hero h1 em{font-style:italic;color:var(--amber)}
+.hero-desc{font-size:1.05rem;color:var(--muted);line-height:1.8;max-width:440px;margin-bottom:0.75rem;font-weight:300}
+.avail-note{font-family:var(--mono);font-size:0.7rem;color:var(--muted);margin-bottom:2.2rem;line-height:1.9}
+.avail-note strong{color:var(--amber);font-weight:500}
+.hero-cta{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-primary{display:inline-flex;align-items:center;gap:0.5rem;background:var(--ink);color:var(--paper);font-size:0.85rem;font-weight:500;padding:0.85rem 1.8rem;border-radius:100px;text-decoration:none;transition:background 0.2s,transform 0.15s;letter-spacing:0.02em}
+.btn-primary:hover{background:var(--amber);transform:translateY(-2px)}
+.btn-outline{display:inline-flex;align-items:center;gap:0.5rem;background:transparent;color:var(--ink);font-size:0.85rem;font-weight:500;padding:0.85rem 1.8rem;border-radius:100px;border:1px solid rgba(14,11,7,0.2);text-decoration:none;transition:border-color 0.2s,transform 0.15s;letter-spacing:0.02em}
+.btn-outline:hover{border-color:var(--amber);color:var(--amber);transform:translateY(-2px)}
+.hero-stats{display:flex;flex-direction:column;gap:1.5rem}
+.stat-card{background:white;border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.8rem;position:relative;overflow:hidden;transition:transform 0.2s,box-shadow 0.2s}
+.stat-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(14,11,7,0.08)}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--amber),var(--amber-light))}
+.stat-num{font-family:var(--serif);font-size:2.8rem;font-weight:900;color:var(--ink);line-height:1;margin-bottom:0.3rem}
+.stat-label{font-size:0.82rem;color:var(--muted);font-weight:400}
+.stat-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+
+section{padding:4.5rem 6rem;position:relative}
+.section-label{font-family:var(--mono);font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);margin-bottom:0.75rem;display:flex;align-items:center;gap:0.75rem}
+.section-label::after{content:'';flex:1;max-width:60px;height:1px;background:var(--amber);opacity:0.4}
+.section-title{font-family:var(--serif);font-size:clamp(2rem,3.5vw,3rem);font-weight:700;line-height:1.15;letter-spacing:-0.02em;color:var(--ink);margin-bottom:3.5rem}
+
+#skills{background:var(--cream)}
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.skill-group{background:white;border:1px solid var(--border);border-radius:16px;padding:1.75rem;transition:transform 0.2s}
+.skill-group:hover{transform:translateY(-3px)}
+.skill-group-icon{width:40px;height:40px;background:var(--amber-pale);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:1rem}
+.skill-group h3{font-family:var(--serif);font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:0.8rem}
+.skill-tags{display:flex;flex-wrap:wrap;gap:0.4rem}
+.skill-tag{font-family:var(--mono);font-size:0.72rem;color:var(--muted);background:var(--cream);border:1px solid var(--border);padding:0.25rem 0.65rem;border-radius:100px;letter-spacing:0.02em}
+
+.projects-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.project-card{background:white;border:1px solid var(--border);border-radius:20px;padding:2rem;position:relative;overflow:hidden;transition:transform 0.25s,box-shadow 0.25s}
+.project-card:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(14,11,7,0.10)}
+.project-card.featured{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start}
+.project-accent{position:absolute;top:0;left:0;right:0;height:4px}
+.accent-amber{background:linear-gradient(90deg,var(--amber),var(--amber-light))}
+.accent-teal{background:linear-gradient(90deg,var(--teal),#39b6a6)}
+.accent-dark{background:linear-gradient(90deg,#2c2416,#7a6f62)}
+.project-chip{display:inline-flex;align-items:center;gap:0.4rem;font-family:var(--mono);font-size:0.68rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.25rem 0.75rem;border-radius:100px;margin-bottom:1.25rem}
+.chip-amber{background:var(--amber-pale);color:var(--amber)}
+.chip-teal{background:var(--teal-light);color:var(--teal)}
+.chip-dark{background:var(--cream);color:var(--muted)}
+.project-title{font-family:var(--serif);font-size:1.4rem;font-weight:700;color:var(--ink);line-height:1.25;margin-bottom:0.75rem;letter-spacing:-0.01em}
+.project-desc{font-size:0.9rem;color:var(--muted);line-height:1.7;margin-bottom:1.5rem;font-weight:300}
+.project-stack{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.5rem}
+.stack-tag{font-family:var(--mono);font-size:0.68rem;color:var(--ink);background:var(--cream);border:1px solid var(--border);padding:0.2rem 0.6rem;border-radius:4px}
+.project-highlights{list-style:none;display:flex;flex-direction:column;gap:0.5rem}
+.project-highlights li{font-size:0.85rem;color:var(--muted);padding-left:1.25rem;position:relative;line-height:1.5}
+.project-highlights li::before{content:'→';position:absolute;left:0;color:var(--amber);font-size:0.75rem}
+
+/* N8N-STYLE FLOW AREA */
+.flow-area{background:var(--cream);border-radius:12px;padding:0;border:1px solid var(--border);overflow:hidden}
+.flow-topbar{background:white;border-bottom:1px solid var(--border);padding:0.5rem 0.875rem;display:flex;align-items:center;gap:0.5rem}
+.flow-dot{width:8px;height:8px;border-radius:50%}
+.flow-label{font-family:var(--mono);font-size:0.6rem;color:var(--muted);letter-spacing:0.06em;margin-left:0.25rem}
+
+/* DASHBOARD CARDS */
+.dash-section{background:var(--cream)}
+.dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.dash-card{background:white;border:1px solid var(--border);border-radius:20px;overflow:hidden;transition:transform 0.25s,box-shadow 0.25s}
+.dash-card:hover{transform:translateY(-5px);box-shadow:0 16px 50px rgba(14,11,7,0.1)}
+.dash-card-header{padding:1rem 1.5rem 0.75rem;border-bottom:1px solid var(--border)}
+.dash-card-badge{display:inline-flex;align-items:center;gap:0.35rem;font-family:var(--mono);font-size:0.62rem;text-transform:uppercase;letter-spacing:0.08em;padding:0.2rem 0.65rem;border-radius:100px;margin-bottom:0.6rem}
+.badge-amber{background:var(--amber-pale);color:var(--amber)}
+.badge-teal{background:var(--teal-light);color:var(--teal)}
+.badge-dark{background:var(--cream);color:var(--muted)}
+.dash-card-title{font-family:var(--serif);font-size:1.05rem;font-weight:700;color:var(--ink);margin-bottom:0.3rem;line-height:1.2}
+.dash-card-desc{font-size:0.8rem;color:var(--muted);line-height:1.6;font-weight:300}
+.dash-card-body{padding:0.75rem 1rem}
+.dash-kpi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:0.45rem;margin-bottom:0.625rem}
+.dk{background:var(--cream);border-radius:6px;padding:0.45rem 0.6rem;border:1px solid var(--border)}
+.dk-l{font-family:var(--mono);font-size:0.5rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.15rem}
+.dk-v{font-family:var(--serif);font-size:1rem;font-weight:700;color:var(--ink);line-height:1}
+.dk-d{font-family:var(--mono);font-size:0.48rem;margin-top:0.12rem}
+.ku{color:#2d9e6e}.kd{color:#d44c3a}.kn{color:var(--amber)}
+.dash-chart-area{background:var(--cream);border-radius:6px;border:1px solid var(--border);padding:0.5rem 0.625rem;overflow:hidden;margin-bottom:0.5rem}
+.dash-chart-label{font-family:var(--mono);font-size:0.5rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.35rem}
+.dash-table{border-radius:6px;overflow:hidden;border:1px solid var(--border)}
+.dth{background:var(--amber-pale);padding:0.32rem 0.65rem;display:grid}
+.dth span{font-family:var(--mono);font-size:0.48rem;color:var(--amber);text-transform:uppercase;letter-spacing:0.06em}
+.dtr{display:grid;padding:0.3rem 0.65rem;border-bottom:1px solid var(--border);background:white;transition:background 0.15s}
+.dtr:last-child{border-bottom:none}
+.dtr:hover{background:var(--cream)}
+.dtr span{font-family:var(--sans);font-size:0.7rem;color:var(--ink);display:flex;align-items:center}
+.bg2{color:#2d9e6e;background:rgba(45,158,110,0.1);border:1px solid rgba(45,158,110,0.2);padding:0.08rem 0.45rem;border-radius:100px;font-family:var(--mono);font-size:0.5rem;display:inline-flex}
+.by2{color:var(--amber);background:var(--amber-pale);border:1px solid rgba(200,97,42,0.2);padding:0.08rem 0.45rem;border-radius:100px;font-family:var(--mono);font-size:0.5rem;display:inline-flex}
+.br2{color:#d44c3a;background:rgba(212,76,58,0.08);border:1px solid rgba(212,76,58,0.2);padding:0.08rem 0.45rem;border-radius:100px;font-family:var(--mono);font-size:0.5rem;display:inline-flex}
+.dash-sidebar-layout{display:grid;grid-template-columns:140px 1fr;min-height:0;align-items:start}
+.dash-sb{background:#fdf9f5;border-right:1px solid var(--border);padding:1rem 0.75rem;display:flex;flex-direction:column;gap:0.2rem;min-height:0}
+.dash-sb-logo{font-family:var(--serif);font-size:0.85rem;font-weight:700;color:var(--amber);padding:0.35rem 0.4rem 0.75rem;border-bottom:1px solid var(--border);margin-bottom:0.4rem;font-style:italic}
+.dsn{display:flex;align-items:center;gap:0.4rem;font-family:var(--sans);font-size:0.68rem;color:var(--muted);padding:0.38rem 0.5rem;border-radius:6px;transition:all 0.15s;cursor:default}
+.dsn.act{background:var(--amber-pale);color:var(--amber);border-left:2px solid var(--amber)}
+.dsn-dot{width:4px;height:4px;border-radius:50%;background:currentColor;flex-shrink:0}
+
+#experience{background:var(--cream)}
+.timeline{position:relative;padding-left:2rem}
+.timeline::before{content:'';position:absolute;left:0;top:0.5rem;bottom:0.5rem;width:1px;background:linear-gradient(to bottom,var(--amber),transparent)}
+.timeline-item{position:relative;margin-bottom:3rem;padding-left:2rem}
+.timeline-dot{position:absolute;left:-2.4rem;top:0.35rem;width:10px;height:10px;border-radius:50%;background:var(--amber);border:2px solid var(--paper);box-shadow:0 0 0 3px rgba(200,97,42,0.2)}
+.timeline-meta{display:flex;align-items:center;gap:1rem;margin-bottom:0.5rem;flex-wrap:wrap}
+.timeline-company{font-family:var(--serif);font-size:1.2rem;font-weight:700;color:var(--ink)}
+.timeline-period{font-family:var(--mono);font-size:0.72rem;color:var(--muted);background:white;border:1px solid var(--border);padding:0.2rem 0.7rem;border-radius:100px}
+.timeline-role{font-size:0.85rem;color:var(--amber);font-weight:500;margin-bottom:0.75rem;letter-spacing:0.02em}
+.timeline-desc{font-size:0.9rem;color:var(--muted);line-height:1.75;font-weight:300}
+
+#contact{background:var(--ink);color:white}
+#contact .section-label{color:var(--amber-light)}
+#contact .section-label::after{background:var(--amber-light)}
+#contact .section-title{color:white}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.contact-desc{font-size:1.05rem;color:rgba(255,255,255,0.55);line-height:1.8;font-weight:300;margin-bottom:2rem}
+.contact-links{display:flex;flex-direction:column;gap:1rem}
+.contact-link{display:flex;align-items:center;gap:1rem;text-decoration:none;color:white;font-size:0.9rem;padding:1rem 1.25rem;border:1px solid rgba(255,255,255,0.12);border-radius:12px;transition:border-color 0.2s,background 0.2s}
+.contact-link:hover{border-color:var(--amber);background:rgba(200,97,42,0.1)}
+.contact-link-icon{width:36px;height:36px;background:rgba(255,255,255,0.07);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.contact-right{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:2rem}
+.open-badge{display:inline-flex;align-items:center;gap:0.6rem;background:rgba(200,97,42,0.15);border:1px solid rgba(200,97,42,0.35);color:var(--amber-light);font-family:var(--mono);font-size:0.75rem;padding:0.5rem 1rem;border-radius:100px;margin-bottom:1.5rem;letter-spacing:0.06em}
+.open-badge::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--amber-light);animation:pulse 2s ease-in-out infinite}
+.roles-list{list-style:none;display:flex;flex-direction:column;gap:0.75rem;margin-bottom:1.5rem}
+.roles-list li{font-size:0.9rem;color:rgba(255,255,255,0.7);padding-left:1.25rem;position:relative}
+.roles-list li::before{content:'→';position:absolute;left:0;color:var(--amber-light);font-size:0.8rem}
+.location-note{font-family:var(--mono);font-size:0.72rem;color:rgba(255,255,255,0.35);letter-spacing:0.05em;line-height:1.9}
+
+footer{background:var(--ink);border-top:1px solid rgba(255,255,255,0.08);padding:1.5rem 6rem;display:flex;justify-content:space-between;align-items:center}
+footer span{font-family:var(--mono);font-size:0.72rem;color:rgba(255,255,255,0.3);letter-spacing:0.06em}
+
+.fade-up{opacity:0;transform:translateY(20px);transition:opacity 0.55s ease,transform 0.55s ease}
+.fade-up.visible{opacity:1;transform:none}
+
+/* N8N node styles */
+.n8n-canvas{background:var(--cream);position:relative;overflow:hidden}
+.n8n-canvas svg{display:block}
+
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem}.nav-links{display:none}
+  .hero{grid-template-columns:1fr;padding:7rem 2rem 3rem}.hero-bg-circle{display:none}
+  .hero-stats{display:grid;grid-template-columns:1fr 1fr}
+  section{padding:4rem 2rem}
+  .skills-grid,.projects-grid,.dash-grid{grid-template-columns:1fr}
+  .project-card.featured{grid-column:auto;grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr;gap:2rem}
+  .dash-sidebar-layout{grid-template-columns:1fr}.dash-sb{display:none}
+  footer{padding:1.5rem 2rem;flex-direction:column;gap:0.5rem;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a onclick="scrollTo('hero')" class="nav-logo" style="cursor:pointer">Monisha Shankar</a>
+  <ul class="nav-links">
+    <li><a onclick="scrollTo('skills')">Skills</a></li>
+    <li><a onclick="scrollTo('projects')">Projects</a></li>
+    <li><a onclick="scrollTo('dashboards')">Dashboards</a></li>
+    <li><a onclick="scrollTo('analysis')">Analysis</a></li>
+    <li><a onclick="scrollTo('experience')">Experience</a></li>
+    <li><a onclick="scrollTo('contact')">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div>
+    <div class="hero-tag">Available · Remote · Goa · Contract · Work from Home</div>
+    <h1>Monisha<br>Shankar<br><em>&amp; AI Builder</em></h1>
+    <p class="hero-desc">3+ years turning business problems into dashboards, AI chatbots, and automation workflows — across retail, airline, manufacturing, and product analytics.</p>
+    <p class="avail-note">Open to: <strong>Remote</strong> · <strong>Goa-based</strong> · <strong>Contract</strong> · <strong>Work from Home</strong> · <strong>Freelance</strong></p>
+    <div class="hero-cta">
+      <a href="mailto:monishashantha@gmail.com" class="btn-primary">Get in touch →</a>
+      <a href="https://linkedin.com/in/monisha-shankar-05b545212" target="_blank" class="btn-outline">LinkedIn ↗</a>
+      <a href="https://github.com/Monishsm" target="_blank" class="btn-outline">GitHub ↗</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-row">
+      <div class="stat-card fade-up"><div class="stat-num">3+</div><div class="stat-label">Years experience</div></div>
+      <div class="stat-card fade-up"><div class="stat-num">8+</div><div class="stat-label">Power BI dashboards</div></div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-card fade-up"><div class="stat-num">2.5%</div><div class="stat-label">Sales uplift delivered</div></div>
+      <div class="stat-card fade-up"><div class="stat-num">25+</div><div class="stat-label">Students mentored</div></div>
+    </div>
+    <div class="stat-card fade-up" style="grid-column:1/-1">
+      <div style="font-family:var(--mono);font-size:0.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.5rem">Core stack</div>
+      <div class="skill-tags"><span class="skill-tag">Python</span><span class="skill-tag">SQL</span><span class="skill-tag">Power BI</span><span class="skill-tag">Streamlit</span><span class="skill-tag">Reflex</span><span class="skill-tag">FastAPI</span><span class="skill-tag">Gemini API</span><span class="skill-tag">Groq API</span><span class="skill-tag">UiPath</span></div>
+    </div>
+  </div>
+  <div class="hero-bg-circle"></div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">What I work with</div>
+  <h2 class="section-title">Skills & Stack</h2>
+  <div class="skills-grid">
+    <div class="skill-group fade-up"><div class="skill-group-icon">📊</div><h3>Data & Analytics</h3><div class="skill-tags"><span class="skill-tag">Python</span><span class="skill-tag">SQL</span><span class="skill-tag">Power BI</span><span class="skill-tag">Pandas</span><span class="skill-tag">NumPy</span><span class="skill-tag">EDA</span><span class="skill-tag">KPI Design</span><span class="skill-tag">Excel</span></div></div>
+    <div class="skill-group fade-up"><div class="skill-group-icon">🤖</div><h3>AI & Chatbots</h3><div class="skill-tags"><span class="skill-tag">Gemini API</span><span class="skill-tag">Groq API</span><span class="skill-tag">OpenRouter</span><span class="skill-tag">LLM Integration</span><span class="skill-tag">AI Chatbots</span><span class="skill-tag">FastAPI</span><span class="skill-tag">REST APIs</span></div></div>
+    <div class="skill-group fade-up"><div class="skill-group-icon">⚙️</div><h3>Automation & Apps</h3><div class="skill-tags"><span class="skill-tag">UiPath</span><span class="skill-tag">Streamlit</span><span class="skill-tag">Reflex</span><span class="skill-tag">API Integration</span><span class="skill-tag">Workflow Automation</span><span class="skill-tag">Git</span></div></div>
+    <div class="skill-group fade-up"><div class="skill-group-icon">🎯</div><h3>Product & Process</h3><div class="skill-tags"><span class="skill-tag">Product Analytics</span><span class="skill-tag">User Stories</span><span class="skill-tag">Agile / Scrum</span><span class="skill-tag">Stakeholder Mgmt</span><span class="skill-tag">Sprint Delivery</span></div></div>
+    <div class="skill-group fade-up"><div class="skill-group-icon">🌐</div><h3>Languages</h3><div class="skill-tags"><span class="skill-tag">English</span><span class="skill-tag">Hindi</span><span class="skill-tag">Kannada</span></div></div>
+    <div class="skill-group fade-up"><div class="skill-group-icon">📚</div><h3>Familiar With</h3><div class="skill-tags"><span class="skill-tag">ML </span><span class="skill-tag">Matplotlib</span><span class="skill-tag">Seaborn</span><span class="skill-tag">DBMS</span><span class="skill-tag">Statistical Analysis</span></div></div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" style="background:var(--paper)">
+  <div class="section-label">Things I've built</div>
+  <h2 class="section-title">Projects</h2>
+  <div class="projects-grid">
+
+    <!-- APAC Sales Agent — n8n style flow -->
+    <div class="project-card featured fade-up">
+      <div class="project-accent accent-amber"></div>
+      <div>
+        <div class="project-chip chip-amber">⭐ Featured · Streamlit + AI + UiPath</div>
+        <h3 class="project-title">APAC Sales Intelligence Agent</h3>
+        <p class="project-desc">Full AI-powered sales platform. Sales reps ask in plain English — "who's behind quota?" — and get instant structured answers from live CSV data. UiPath workflows auto-triggered by query intent.</p>
+        <div class="project-stack"><span class="stack-tag">Streamlit</span><span class="stack-tag">Python</span><span class="stack-tag">Groq API</span><span class="stack-tag">OpenRouter</span><span class="stack-tag">UiPath</span><span class="stack-tag">FastAPI</span><span class="stack-tag">Chart.js</span></div>
+        <ul class="project-highlights">
+          <li>10+ query intents: attainment, prospects, country breakdown, funnel</li>
+          <li>LLM intent parser routes queries to the correct data handler instantly</li>
+          <li>Smart 7-day contact cache avoids redundant LLM calls</li>
+          <li>One-click Visualize generates Chart.js from any answer</li>
+          <li>JWT auth, rate limiting, password-protected Streamlit app</li>
+        </ul>
+      </div>
+      <div>
+        <div style="font-family:var(--mono);font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.6rem">Automation flow</div>
+        <div class="flow-area">
+          <div class="flow-topbar">
+            <div class="flow-dot" style="background:#f87171"></div>
+            <div class="flow-dot" style="background:#fbbf24"></div>
+            <div class="flow-dot" style="background:#4ade80"></div>
+            <span class="flow-label">APAC Sales Agent · workflow</span>
+          </div>
+          <svg id="n8n1" viewBox="0 0 360 295" width="100%" style="display:block;height:295px"></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- UiPath Suite — n8n style -->
+    <div class="project-card featured fade-up">
+      <div class="project-accent accent-teal"></div>
+      <div>
+        <div class="project-chip chip-teal">UiPath + Streamlit + Groq · 5 Workflows</div>
+        <h3 class="project-title">Sales Automation Workflow Suite</h3>
+        <p class="project-desc">5-workflow UiPath automation suite for APAC sales ops — triggered from Streamlit frontend via UiPath Orchestrator API with JWT auth and rate limiting.</p>
+        <div class="project-stack"><span class="stack-tag">UiPath</span><span class="stack-tag">Streamlit</span><span class="stack-tag">REST API</span><span class="stack-tag">JWT Auth</span><span class="stack-tag">Groq AI</span></div>
+        <ul class="project-highlights">
+          <li>WF1: Daily performance briefing from CSV data</li>
+          <li>WF2A/B: Contact fetcher + automated email sender</li>
+          <li>WF3: Opportunity scoring and ranking</li>
+          <li>WF4: AI-powered opportunity analysis via Groq</li>
+          <li>WF5: Opportunity summary email automation</li>
+        </ul>
+      </div>
+      <div>
+        <div style="font-family:var(--mono);font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.6rem">Orchestration flow</div>
+        <div class="flow-area">
+          <div class="flow-topbar">
+            <div class="flow-dot" style="background:#f87171"></div>
+            <div class="flow-dot" style="background:#fbbf24"></div>
+            <div class="flow-dot" style="background:#4ade80"></div>
+            <span class="flow-label">UiPath Suite · orchestration</span>
+          </div>
+          <svg id="n8n2" viewBox="0 0 360 265" width="100%" style="display:block;height:265px"></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shop Intel -->
+    <div class="project-card fade-up">
+      <div class="project-accent accent-teal"></div>
+      <div class="project-chip chip-teal">AI + FastAPI</div>
+      <h3 class="project-title">Shop Intel — AI Agent</h3>
+      <p class="project-desc">AI-powered retail intelligence API for FMCG brands. Given shop, SKU, city — analyses demand trends and Blinkit rankings, outputs opportunity scores and recommended field actions.</p>
+      <div class="project-stack"><span class="stack-tag">FastAPI</span><span class="stack-tag">Gemini API</span><span class="stack-tag">Groq API</span><span class="stack-tag">OpenStreetMap API</span><span class="stack-tag">Pydantic</span></div>
+      <ul class="project-highlights">
+        <li>Dual LLM — Gemini primary, Groq fallback, rule-based degradation</li>
+        <li>Real shop data from OpenStreetMap by pincode + city</li>
+        <li>JWT auth, rate limiting, multi-layer TTL caching per endpoint</li>
+        <li>Structured output: opportunity score 0–10 + recommended action</li>
+      </ul>
+    </div>
+
+    <!-- Lead Scoring + EDA -->
+    <div class="project-card fade-up">
+      <div class="project-accent accent-dark"></div>
+      <div class="project-chip chip-dark">Reflex + Streamlit</div>
+      <h3 class="project-title">Lead Scoring App </h3>
+      <p class="project-desc">Lead scoring web app in Reflex — drag-and-drop CSV, HIGH/MEDIUM/LOW buckets, export</p>
+      <div class="project-stack"><span class="stack-tag">Reflex</span><span class="stack-tag">Streamlit</span><span class="stack-tag">Pandas</span><span class="stack-tag">Seaborn</span><span class="stack-tag">Snowflake</span></div>
+      <ul class="project-highlights">
+        <li>6 modular scorers — email, phone, distance, property, financial, behavioral</li>
+        <li>200 leads scored in ~2 seconds, normalized 0–100</li>
+        <li></li>
+        <li></li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- DASHBOARDS -->
+<section id="dashboards" class="dash-section">
+  <div class="section-label">Power BI work</div>
+  <h2 class="section-title">Dashboards</h2>
+  <p style="font-size:0.95rem;color:var(--muted);font-weight:300;line-height:1.8;max-width:580px;margin-bottom:3rem">8+ real-time dashboards built at Mu Sigma and Dsights — tracking 20+ business KPIs across retail, airline, supply chain, and product analytics domains.</p>
+
+  <!-- Retail full mockup -->
+  <div class="dash-card fade-up" style="margin-bottom:2rem;border-radius:20px">
+    <div class="dash-card-header">
+      <div class="dash-card-badge badge-amber">Retail / FMCG · Mu Sigma</div>
+      <div class="dash-card-title">Retail Distribution & Sales Dashboard</div>
+      <div class="dash-card-desc">DMA-level distribution intelligence — tracked territory revenue, sell-through rates, and inventory gaps. The analysis behind this dashboard contributed directly to a 2.5% sales uplift and 4% inventory reduction for a major FMCG client.</div>
+    </div>
+    <div class="dash-sidebar-layout">
+      <div class="dash-sb">
+        <div class="dash-sb-logo">RetailIQ</div>
+        <div class="dsn act"><div class="dsn-dot"></div>Overview</div>
+        <div class="dsn"><div class="dsn-dot"></div>Territory</div>
+        <div class="dsn"><div class="dsn-dot"></div>Products</div>
+        <div class="dsn"><div class="dsn-dot"></div>Inventory</div>
+        <div class="dsn"><div class="dsn-dot"></div>Distributors</div>
+        <div style="padding-top:0.75rem;border-top:1px solid var(--border);margin-top:0.5rem">
+          <div style="font-family:var(--mono);font-size:0.5rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.35rem">Period</div>
+          <div style="font-family:var(--mono);font-size:0.6rem;color:var(--amber);background:var(--amber-pale);border:1px solid rgba(200,97,42,0.2);padding:0.22rem 0.5rem;border-radius:4px;margin-bottom:0.25rem">Q1 2024</div>
+          <div style="font-family:var(--mono);font-size:0.6rem;color:var(--muted);background:var(--cream);border:1px solid var(--border);padding:0.22rem 0.5rem;border-radius:4px">All Regions</div>
+        </div>
+      </div>
+      <div class="dash-card-body">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.875rem;padding-bottom:0.625rem;border-bottom:1px solid var(--border)">
+          <div style="font-family:var(--serif);font-size:0.9rem;font-weight:700;color:var(--ink);font-style:italic">Distribution Overview</div>
+          <div style="font-family:var(--mono);font-size:0.55rem;color:var(--amber);background:var(--amber-pale);border:1px solid rgba(200,97,42,0.2);padding:0.15rem 0.55rem;border-radius:100px">Q1 2024</div>
+        </div>
+        <div class="dash-kpi-row" style="grid-template-columns:repeat(4,1fr)">
+          <div class="dk"><div class="dk-l">Revenue</div><div class="dk-v">$4.2M</div><div class="dk-d ku">▲ 2.5%</div></div>
+          <div class="dk"><div class="dk-l">Inventory</div><div class="dk-v">82.4K</div><div class="dk-d ku">▼ 4.1% excess</div></div>
+          <div class="dk"><div class="dk-l">Active DMAs</div><div class="dk-v">54</div><div class="dk-d kn">→ 3 new</div></div>
+          <div class="dk"><div class="dk-l">Fill Rate</div><div class="dk-v">94.2%</div><div class="dk-d ku">▲ 1.8%</div></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1.6fr 1fr;gap:0.625rem;margin-bottom:0.75rem">
+          <div class="dash-chart-area"><div class="dash-chart-label">Revenue by territory</div><canvas id="dc1" style="max-height:70px"></canvas></div>
+          <div class="dash-chart-area"><div class="dash-chart-label">Sell-through trend</div><canvas id="dc2" style="max-height:70px"></canvas></div>
+        </div>
+        <div class="dash-table">
+          <div class="dth" style="grid-template-columns:2fr 1fr 1fr 1fr 0.9fr"><span>Territory</span><span>Revenue</span><span>vs Target</span><span>Fill Rate</span><span>Status</span></div>
+          <div class="dtr" style="grid-template-columns:2fr 1fr 1fr 1fr 0.9fr"><span>North — Delhi NCR</span><span>$1.12M</span><span style="color:#2d9e6e">+8.2%</span><span>96.4%</span><span><div class="bg2">On Track</div></span></div>
+          <div class="dtr" style="grid-template-columns:2fr 1fr 1fr 1fr 0.9fr"><span>West — Mumbai</span><span>$0.98M</span><span style="color:#2d9e6e">+3.1%</span><span>92.1%</span><span><div class="bg2">On Track</div></span></div>
+          <div class="dtr" style="grid-template-columns:2fr 1fr 1fr 1fr 0.9fr"><span>South — Bangalore</span><span>$0.87M</span><span style="color:var(--amber)">-1.4%</span><span>89.7%</span><span><div class="by2">Watch</div></span></div>
+          <div class="dtr" style="grid-template-columns:2fr 1fr 1fr 1fr 0.9fr"><span>East — Kolkata</span><span>$0.64M</span><span style="color:#d44c3a">-12.3%</span><span>81.2%</span><span><div class="br2">At Risk</div></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Airline full mockup -->
+  <div class="dash-card fade-up" style="margin-bottom:2rem;border-radius:20px">
+    <div class="dash-card-header">
+      <div class="dash-card-badge badge-teal">Airlines / Operations · Dsights</div>
+      <div class="dash-card-title">Airline Operations Performance Dashboard</div>
+      <div class="dash-card-desc">Multi-hub operational KPI tracking — on-time performance, route efficiency, turnaround times, and capacity utilisation across all routes. Real-time data refresh with drill-through to individual route analysis.</div>
+    </div>
+    <div class="dash-sidebar-layout">
+      <div class="dash-sb">
+        <div class="dash-sb-logo" style="color:var(--teal)">OpsIQ</div>
+        <div class="dsn act" style="background:var(--teal-light);color:var(--teal);border-left:2px solid var(--teal)"><div class="dsn-dot"></div>Performance</div>
+        <div class="dsn"><div class="dsn-dot"></div>Routes</div>
+        <div class="dsn"><div class="dsn-dot"></div>Delays</div>
+        <div class="dsn"><div class="dsn-dot"></div>Capacity</div>
+        <div class="dsn"><div class="dsn-dot"></div>Turnaround</div>
+        <div style="padding-top:0.75rem;border-top:1px solid var(--border);margin-top:0.5rem">
+          <div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.3rem"><div style="width:6px;height:6px;border-radius:50%;background:#2d9e6e"></div><span style="font-family:var(--mono);font-size:0.56rem;color:#2d9e6e">38 Active</span></div>
+          <div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.3rem"><div style="width:6px;height:6px;border-radius:50%;background:var(--amber)"></div><span style="font-family:var(--mono);font-size:0.56rem;color:var(--amber)">4 Delayed</span></div>
+          <div style="display:flex;align-items:center;gap:0.4rem"><div style="width:6px;height:6px;border-radius:50%;background:#2d9e6e;animation:pulse 1.5s ease-in-out infinite"></div><span style="font-family:var(--mono);font-size:0.56rem;color:#2d9e6e">Live</span></div>
+        </div>
+      </div>
+      <div class="dash-card-body">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.875rem;padding-bottom:0.625rem;border-bottom:1px solid var(--border)">
+          <div style="font-family:var(--serif);font-size:0.9rem;font-weight:700;color:var(--ink);font-style:italic">Operations Performance</div>
+          <div style="display:flex;align-items:center;gap:0.4rem"><div style="width:7px;height:7px;border-radius:50%;background:#2d9e6e"></div><span style="font-family:var(--mono);font-size:0.56rem;color:#2d9e6e">Live refresh</span></div>
+        </div>
+        <div class="dash-kpi-row" style="grid-template-columns:repeat(4,1fr)">
+          <div class="dk"><div class="dk-l">On-Time Rate</div><div class="dk-v">87.4%</div><div class="dk-d ku">▲ 3.1% vs last wk</div></div>
+          <div class="dk"><div class="dk-l">Avg Delay</div><div class="dk-v">12 min</div><div class="dk-d ku">▼ 4 min improved</div></div>
+          <div class="dk"><div class="dk-l">Load Factor</div><div class="dk-v">82%</div><div class="dk-d ku">▲ 5%</div></div>
+          <div class="dk"><div class="dk-l">Turnaround</div><div class="dk-v">34 min</div><div class="dk-d ku">▼ 3 min faster</div></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1.6fr 1fr;gap:0.625rem;margin-bottom:0.75rem">
+          <div class="dash-chart-area"><div class="dash-chart-label">On-time % by route</div><canvas id="dc3" style="max-height:70px"></canvas></div>
+          <div class="dash-chart-area"><div class="dash-chart-label">Delay trend — 30 days</div><canvas id="dc4" style="max-height:70px"></canvas></div>
+        </div>
+        <div class="dash-table">
+          <div class="dth" style="grid-template-columns:2fr 1fr 1fr 1fr 0.9fr"><span>Route</span><span>Flights</span><span>On-Time %</span><span>Avg Delay</span><span>Status</span></div>
+          <div class="dtr" style="grid-template-columns:2fr 1fr 1fr 1fr 0.9fr"><span>BLR → DEL</span><span>12/day</span><span style="color:#2d9e6e">94.2%</span><span>6 min</span><span><div class="bg2">Excellent</div></span></div>
+          <div class="dtr" style="grid-template-columns:2fr 1fr 1fr 1fr 0.9fr"><span>BOM → BLR</span><span>18/day</span><span style="color:#2d9e6e">91.1%</span><span>9 min</span><span><div class="bg2">Good</div></span></div>
+          <div class="dtr" style="grid-template-columns:2fr 1fr 1fr 1fr 0.9fr"><span>DEL → CCU</span><span>8/day</span><span style="color:var(--amber)">76.5%</span><span>18 min</span><span><div class="by2">Watch</div></span></div>
+          <div class="dtr" style="grid-template-columns:2fr 1fr 1fr 1fr 0.9fr"><span>HYD → BOM</span><span>14/day</span><span style="color:#d44c3a">61.3%</span><span>31 min</span><span><div class="br2">Review</div></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2 smaller cards -->
+  <div class="dash-grid">
+    <div class="dash-card fade-up">
+      <div class="dash-card-header">
+        <div class="dash-card-badge badge-dark">Supply Chain / Manufacturing</div>
+        <div class="dash-card-title">Supply Chain & Manufacturing</div>
+        <div class="dash-card-desc">End-to-end pipeline visibility from procurement through production to dispatch. Automated daily refresh replaced manual Excel reporting entirely at Dsights.</div>
+      </div>
+      <div class="dash-card-body">
+        <div class="dash-kpi-row">
+          <div class="dk"><div class="dk-l">Units</div><div class="dk-v">18.4K</div><div class="dk-d ku">▲ 6%</div></div>
+          <div class="dk"><div class="dk-l">Defect %</div><div class="dk-v">1.2%</div><div class="dk-d ku">▼ 0.4%</div></div>
+          <div class="dk"><div class="dk-l">SLA %</div><div class="dk-v">96%</div><div class="dk-d ku">▲ 2%</div></div>
+        </div>
+        <div class="dash-chart-area"><div class="dash-chart-label">Production pipeline stages</div>
+          <div style="display:flex;flex-direction:column;gap:5px;padding-top:2px">
+            <div style="display:flex;align-items:center;gap:6px"><div style="font-family:var(--mono);font-size:0.55rem;color:var(--muted);width:65px">Procure</div><div style="height:8px;width:55%;background:var(--amber);border-radius:2px;opacity:0.7"></div><span style="font-family:var(--mono);font-size:0.52rem;color:var(--muted);margin-left:4px">55%</span></div>
+            <div style="display:flex;align-items:center;gap:6px"><div style="font-family:var(--mono);font-size:0.55rem;color:var(--muted);width:65px">Produce</div><div style="height:8px;width:75%;background:var(--amber);border-radius:2px"></div><span style="font-family:var(--mono);font-size:0.52rem;color:var(--muted);margin-left:4px">75%</span></div>
+            <div style="display:flex;align-items:center;gap:6px"><div style="font-family:var(--mono);font-size:0.55rem;color:var(--muted);width:65px">Dispatch</div><div style="height:8px;width:96%;background:#2d9e6e;border-radius:2px"></div><span style="font-family:var(--mono);font-size:0.52rem;color:var(--muted);margin-left:4px">96%</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="dash-card fade-up">
+      <div class="dash-card-header">
+        <div class="dash-card-badge badge-amber">Microsoft CMD · Mu Sigma</div>
+        <div class="dash-card-title">Microsoft Teams Device Tracking</div>
+        <div class="dash-card-desc">Teams-certified device adoption dashboard for Microsoft client — deployment funnel, usage metrics, and region-level gap analysis across global enterprise accounts.</div>
+      </div>
+      <div class="dash-card-body">
+        <div class="dash-kpi-row">
+          <div class="dk"><div class="dk-l">Devices</div><div class="dk-v">12.4K</div><div class="dk-d ku">▲ 8.2%</div></div>
+          <div class="dk"><div class="dk-l">Adoption</div><div class="dk-v">73%</div><div class="dk-d ku">▲ 5%</div></div>
+          <div class="dk"><div class="dk-l">Gap</div><div class="dk-v">27%</div><div class="dk-d kd">▼ 5%</div></div>
+        </div>
+        <div class="dash-chart-area"><div class="dash-chart-label">Deployment funnel</div>
+          <div style="display:flex;flex-direction:column;gap:5px;padding-top:2px">
+            <div style="display:flex;align-items:center;gap:6px"><div style="font-family:var(--mono);font-size:0.55rem;color:var(--muted);width:65px">Eligible</div><div style="height:8px;width:100%;background:rgba(14,11,7,0.12);border-radius:2px"></div><span style="font-family:var(--mono);font-size:0.52rem;color:var(--muted);margin-left:4px">100%</span></div>
+            <div style="display:flex;align-items:center;gap:6px"><div style="font-family:var(--mono);font-size:0.55rem;color:var(--muted);width:65px">Deployed</div><div style="height:8px;width:73%;background:var(--amber);border-radius:2px"></div><span style="font-family:var(--mono);font-size:0.52rem;color:var(--muted);margin-left:4px">73%</span></div>
+            <div style="display:flex;align-items:center;gap:6px"><div style="font-family:var(--mono);font-size:0.55rem;color:var(--muted);width:65px">Active</div><div style="height:8px;width:60%;background:#2d9e6e;border-radius:2px"></div><span style="font-family:var(--mono);font-size:0.52rem;color:var(--muted);margin-left:4px">60%</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ANALYSIS -->
+<section id="analysis" style="background:var(--paper)">
+  <div class="section-label">Analytics work</div>
+  <h2 class="section-title">Data Analysis Projects</h2>
+  <div class="projects-grid">
+
+    <!-- Web App KPI — n8n style funnel -->
+    <div class="project-card featured fade-up">
+      <div class="project-accent accent-teal"></div>
+      <div>
+        <div class="project-chip chip-teal">Dsights · Web App Analytics</div>
+        <h3 class="project-title">Web App KPI Framework - Retail Mind</h3>
+        <p class="project-desc">Defined and built the full KPI framework for Dsights' web analytics product from scratch. Owned the product thinking — what to measure, why it matters, how to present it. Acted as Product Owner through sprint delivery end-to-end.</p>
+        <div class="project-stack"></span><span class="stack-tag">Python</span><span class="stack-tag">Product Analytics</span><span class="stack-tag">User Stories</span><span class="stack-tag">Agile</span></div>
+        <ul class="project-highlights">
+          <li>Defined 20+ product and business KPIs from scratch</li>
+          <li>Wrote 30+ user stories bridging engineering and business</li>
+          <li>Web: funnel conversion, bounce, engagement, revenue KPIs</li>
+          <li>Acted as Product Owner managing sprint delivery end-to-end</li>
+        </ul>
+      </div>
+      <div>
+        <div style="font-family:var(--mono);font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.6rem">Web analytics funnel</div>
+        <div class="flow-area">
+          <div class="flow-topbar">
+            <div class="flow-dot" style="background:#f87171"></div>
+            <div class="flow-dot" style="background:#fbbf24"></div>
+            <div class="flow-dot" style="background:#4ade80"></div>
+            <span class="flow-label">Product KPI Framework · funnel</span>
+          </div>
+          <svg id="n8n3" viewBox="0 0 360 250" width="100%" style="display:block;height:250px"></svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card fade-up">
+      <div class="project-accent accent-amber"></div>
+      <div class="project-chip chip-amber">Streamlit Tool · Reusable</div>
+      <h3 class="project-title">Automated EDA Framework</h3>
+      <p class="project-desc">Reusable Streamlit app that automates the full EDA workflow — built to eliminate repetitive profiling code. Used at both Mu Sigma and Dsights across projects.</p>
+      <div class="project-stack"><span class="stack-tag">Streamlit</span><span class="stack-tag">Python</span><span class="stack-tag">Pandas</span><span class="stack-tag">Seaborn</span><span class="stack-tag">Snowflake</span><span class="stack-tag">NumPy</span></div>
+      <ul class="project-highlights">
+        <li>3 data sources — CSV, Snowflake connector, URL</li>
+        <li>Auto-detects primary key across column combinations</li>
+        <li>IQR outlier detection with box plots + % records flagged</li>
+        <li>In-app data type conversion (int, float, object, datetime)</li>
+        <li>Null & Duplicate values handling with statistical info</li>
+      </ul>
+    </div>
+
+    <div class="project-card fade-up">
+      <div class="project-accent accent-dark"></div>
+      <div class="project-chip chip-dark">Mu Sigma </div>
+      <h3 class="project-title">DMA Optimisation — Retail Distribution</h3>
+      <p class="project-desc">Deep analysis of retail distribution across 50+ Designated Market Areas for a major FMCG client. Identified underperforming territories and quantified revenue impact.</p>
+      <div class="project-stack"><span class="stack-tag">Python</span><span class="stack-tag">SQL</span><span class="stack-tag">Pandas</span><span class="stack-tag">Statistical Analysis</span><span class="stack-tag">Power BI</span></div>
+      <ul class="project-highlights">
+        <li>500K+ row retail transaction dataset analysed end-to-end</li>
+        <li>Territory gap analysis across 50+ DMAs</li>
+        <li>Delivered 2.5% sales uplift + 4% inventory reduction</li>
+        <li>Automated EDA pipeline using Python + Streamlit QC tool</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">Where I've worked</div>
+  <h2 class="section-title">Experience & Education</h2>
+  <div class="timeline">
+    <div class="timeline-item fade-up">
+      <div class="timeline-dot"></div>
+      <div class="timeline-meta"><span class="timeline-company">Dsights</span><span class="timeline-period">Jun 2024 – Present</span></div>
+      <div class="timeline-role">Data Scientist — Analytics, Automation & Product</div>
+      <p class="timeline-desc">Startup environment meant owning end-to-end delivery. Built Power BI dashboards, AI chatbots via Streamlit and Reflex, integrated Gemini and Groq LLM APIs, and built a full UiPath automation suite. Acted as Product Owner — writing 30+ user stories, managing sprints, aligning engineering, UI/UX, and business teams. Domains: retail, manufacturing, airline, and product analytics.</p>
+    </div>
+    <div class="timeline-item fade-up">
+      <div class="timeline-dot"></div>
+      <div class="timeline-meta"><span class="timeline-company">Mu Sigma</span><span class="timeline-period">Nov 2022 – Feb 2024</span></div>
+      <div class="timeline-role">Decision Scientist / Data Analyst</div>
+      <p class="timeline-desc">Client-facing data science at scale. Delivered 2.5% sales uplift and 4% inventory reduction through retail distribution analysis. Built KPI dashboards for Microsoft (Teams device tracking) and FMCG retail clients. Automated EDA workflows with a Streamlit QC tool built in-house, and refactored Python and SQL pipelines for performance.</p>
+    </div>
+    <div class="timeline-item fade-up">
+      <div class="timeline-dot"></div>
+      <div class="timeline-meta"><span class="timeline-company">Career Redefine</span><span class="timeline-period">Oct 2025 – Present</span></div>
+      <div class="timeline-role">Data Science Mentor (Part-time)</div>
+      <p class="timeline-desc">Mentoring 25+ students through project-based learning in Python, SQL, Power BI, and Excel. Helping career transitioners build portfolios and prepare for interviews.</p>
+    </div>
+    <div class="timeline-item fade-up">
+      <div class="timeline-dot"></div>
+      <div class="timeline-meta"><span class="timeline-company">Before Data Science</span><span class="timeline-period">Pre-2022</span></div>
+      <div class="timeline-role">School Teacher & Assistant lecturer</div>
+      <p class="timeline-desc">Started as a school teacher, then as a lecturer — before taking the leap into data science. Executive PG in Data Science from IIIT Bangalore in partnership with Upgrad. M.Sc. Mathematics and B.Sc. Computer Science, University of Mysore. The teaching background shapes how I communicate data — clearly, for people who aren't data experts.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Let's talk</div>
+  <h2 class="section-title">Open to Work</h2>
+  <div class="contact-grid">
+    <div>
+      <p class="contact-desc">Actively looking for my next role — full-time, contract, or freelance. Remote, Goa-based, or work from home. If your team needs someone who builds things people actually use, let's talk.</p>
+      <div class="contact-links">
+        <a href="mailto:monishashantha@gmail.com" class="contact-link"><div class="contact-link-icon">✉</div>monishashantha@gmail.com</a>
+        <a href="https://linkedin.com/in/monisha-shankar-05b545212" target="_blank" class="contact-link"><div class="contact-link-icon">in</div>linkedin.com/in/monisha-shankar-05b545212</a>
+        <a href="https://github.com/Monishsm" target="_blank" class="contact-link"><div class="contact-link-icon">⌥</div>github.com/Monishsm</a>
+      </div>
+    </div>
+    <div class="contact-right">
+      <div class="open-badge">Open to Work</div>
+      <p style="font-size:0.9rem;color:rgba(255,255,255,0.55);margin-bottom:1.2rem;font-weight:300;line-height:1.7">Roles I'm looking for:</p>
+      <ul class="roles-list">
+        <li>Data Analyst</li>
+        <li>BI Developer / Power BI Developer</li>
+        <li>AI & Automation Engineer</li>
+        <li>Product Analyst</li>
+        <li>Freelance Data / AI Projects</li>
+      </ul>
+      <p class="location-note">📍 Goa, India<br>💻 Remote · Work from Home · Contract<br>🕐 Available immediately</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Monisha Shankar · 2025</span>
+  <span>Data Scientist & AI Builder · Goa, India</span>
+  <span>monishashantha@gmail.com</span>
+</footer>
+
+<script>
+/* ══════════════════════════════════════════════
+   N8N-STYLE SVG FLOW RENDERER
+══════════════════════════════════════════════ */
+const AM = '#c8612a', TL = '#1d7a6e', INK = '#0e0b07', MU = '#7a6f62';
+const BG = '#f2ede3', WH = '#ffffff';
+
+function mkDefs(svg) {
+  const d = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+  d.innerHTML = `
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke="context-stroke"/>
+    </marker>
+    <filter id="glow"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  `;
+  svg.appendChild(d);
+}
+
+/* Draw one n8n-style rounded node */
+function drawNode(svg, x, y, w, h, icon, label, sub, col, isActive) {
+  const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+  // Shadow rect
+  const sh = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+  sh.setAttribute('x', x+2); sh.setAttribute('y', y+2);
+  sh.setAttribute('width', w); sh.setAttribute('height', h);
+  sh.setAttribute('rx', 8);
+  sh.setAttribute('fill', 'rgba(14,11,7,0.07)');
+  g.appendChild(sh);
+  // Main rect
+  const r = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+  r.setAttribute('x', x); r.setAttribute('y', y);
+  r.setAttribute('width', w); r.setAttribute('height', h);
+  r.setAttribute('rx', 8);
+  r.setAttribute('fill', WH);
+  r.setAttribute('stroke', isActive ? col : 'rgba(14,11,7,0.12)');
+  r.setAttribute('stroke-width', isActive ? '1.5' : '1');
+  g.appendChild(r);
+  // Left accent bar
+  const bar = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+  bar.setAttribute('x', x); bar.setAttribute('y', y);
+  bar.setAttribute('width', 4); bar.setAttribute('height', h);
+  bar.setAttribute('rx', 4);
+  bar.setAttribute('fill', col);
+  g.appendChild(bar);
+  // Icon circle
+  const ic = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+  ic.setAttribute('cx', x + 18); ic.setAttribute('cy', y + h/2);
+  ic.setAttribute('r', 10);
+  ic.setAttribute('fill', col + '18');
+  g.appendChild(ic);
+  // Icon text
+  const it = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  it.setAttribute('x', x + 18); it.setAttribute('y', y + h/2 + 1);
+  it.setAttribute('text-anchor', 'middle'); it.setAttribute('dominant-baseline', 'central');
+  it.setAttribute('font-size', '10'); it.setAttribute('font-family', 'DM Sans, sans-serif');
+  it.textContent = icon;
+  g.appendChild(it);
+  // Label
+  const lt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  lt.setAttribute('x', x + 34); lt.setAttribute('y', sub ? y + h/2 - 6 : y + h/2 + 1);
+  lt.setAttribute('dominant-baseline', 'central');
+  lt.setAttribute('font-size', '9.5'); lt.setAttribute('font-weight', '500');
+  lt.setAttribute('font-family', 'DM Mono, monospace');
+  lt.setAttribute('fill', INK);
+  lt.textContent = label;
+  g.appendChild(lt);
+  if (sub) {
+    const st = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    st.setAttribute('x', x + 34); st.setAttribute('y', y + h/2 + 7);
+    st.setAttribute('dominant-baseline', 'central');
+    st.setAttribute('font-size', '8'); st.setAttribute('font-family', 'DM Mono, monospace');
+    st.setAttribute('fill', MU);
+    st.textContent = sub;
+    g.appendChild(st);
+  }
+  svg.appendChild(g);
+  return g;
+}
+
+/* Draw connector line with animated dot */
+function drawConn(svg, x1, y1, x2, y2, col, delay) {
+  const mid = (y1 + y2) / 2;
+  // Line
+  const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  const d = `M${x1},${y1} C${x1},${mid} ${x2},${mid} ${x2},${y2}`;
+  path.setAttribute('d', d);
+  path.setAttribute('fill', 'none');
+  path.setAttribute('stroke', 'rgba(14,11,7,0.12)');
+  path.setAttribute('stroke-width', '1.5');
+  path.setAttribute('stroke-dasharray', '3,3');
+  path.setAttribute('marker-end', 'url(#arr)');
+  svg.appendChild(path);
+  // Animated dot
+  const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+  dot.setAttribute('r', '3.5');
+  dot.setAttribute('fill', col);
+  dot.style.filter = 'url(#glow)';
+  svg.appendChild(dot);
+  const anim = document.createElementNS('http://www.w3.org/2000/svg', 'animateMotion');
+  anim.setAttribute('dur', '1.8s');
+  anim.setAttribute('repeatCount', 'indefinite');
+  anim.setAttribute('begin', delay + 's');
+  const mp = document.createElementNS('http://www.w3.org/2000/svg', 'mpath');
+  // Use the same d path
+  const pid = 'p' + Math.random().toString(36).slice(2);
+  path.setAttribute('id', pid);
+  mp.setAttribute('href', '#' + pid);
+  anim.appendChild(mp);
+  dot.appendChild(anim);
+}
+
+/* ── N8N FLOW 1: APAC Sales Agent ── */
+function buildN8N1() {
+  const svg = document.getElementById('n8n1');
+  if (!svg) return;
+  mkDefs(svg);
+  const NW = 140, NH = 38, CX = 180;
+
+  const nodes = [
+    { y: 14, icon: '💬', label: 'User question', sub: 'plain english', col: AM, active: true },
+    { y: 72, icon: '🧠', label: 'LLM intent parser', sub: 'Groq / OpenRouter', col: AM, active: false },
+    { y: 130, icon: '🔀', label: 'Query router', sub: '10+ intent types', col: TL, active: false },
+    { y: 188, icon: '📊', label: 'Data engine', sub: 'CSV + scoring', col: AM, active: false },
+    { y: 246, icon: '⚡', label: 'Answer + chart', sub: 'cached + displayed', col: TL, active: false },
+  ];
+
+  // UiPath branch node
+  const brX = CX + NW/2 + 28, brY = 188;
+  drawNode(svg, CX - NW/2, nodes[0].y, NW, NH, nodes[0].icon, nodes[0].label, nodes[0].sub, nodes[0].col, true);
+  nodes.slice(1).forEach(n => drawNode(svg, CX - NW/2, n.y, NW, NH, n.icon, n.label, n.sub, n.col, false));
+
+  // Branch node for UiPath
+  const bw = 95, bh = 34;
+  const bg = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+  const bsh = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+  bsh.setAttribute('x', brX+2); bsh.setAttribute('y', brY+2); bsh.setAttribute('width', bw); bsh.setAttribute('height', bh); bsh.setAttribute('rx', 6); bsh.setAttribute('fill', 'rgba(14,11,7,0.06)'); bg.appendChild(bsh);
+  const br = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+  br.setAttribute('x', brX); br.setAttribute('y', brY); br.setAttribute('width', bw); br.setAttribute('height', bh); br.setAttribute('rx', 6); br.setAttribute('fill', '#e3f4f1'); br.setAttribute('stroke', TL); br.setAttribute('stroke-width', '1'); bg.appendChild(br);
+  const bt1 = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  bt1.setAttribute('x', brX+bw/2); bt1.setAttribute('y', brY+12); bt1.setAttribute('text-anchor', 'middle'); bt1.setAttribute('font-size', '9'); bt1.setAttribute('font-weight', '500'); bt1.setAttribute('font-family', 'DM Mono,monospace'); bt1.setAttribute('fill', TL); bt1.textContent = '⚙ UiPath trigger'; bg.appendChild(bt1);
+  const bt2 = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  bt2.setAttribute('x', brX+bw/2); bt2.setAttribute('y', brY+24); bt2.setAttribute('text-anchor', 'middle'); bt2.setAttribute('font-size', '7.5'); bt2.setAttribute('font-family', 'DM Mono,monospace'); bt2.setAttribute('fill', MU); bt2.textContent = '5 workflows'; bg.appendChild(bt2);
+  svg.appendChild(bg);
+
+  // Connections
+  const cx = CX, nh = NH;
+  for (let i = 0; i < nodes.length - 1; i++) {
+    const y1 = nodes[i].y + nh, y2 = nodes[i+1].y;
+    drawConn(svg, cx, y1, cx, y2, nodes[i].col, i * 0.36);
+  }
+  // Branch from router to UiPath
+  drawConn(svg, CX + NW/2, nodes[2].y + nh/2, brX, brY + bh/2, TL, 0.9);
+}
+
+/* ── N8N FLOW 2: UiPath Orchestration ── */
+function buildN8N2() {
+  const svg = document.getElementById('n8n2');
+  if (!svg) return;
+  mkDefs(svg);
+  const NW = 150, NH = 36;
+
+  // Top 2 nodes centered
+  drawNode(svg, 180 - NW/2, 14, NW, NH, '🖥', 'Streamlit frontend', 'JWT + trigger', AM, true);
+  drawNode(svg, 180 - NW/2, 72, NW, NH, '⚙', 'UiPath Orchestrator', 'API + routing', TL, false);
+  drawConn(svg, 180, 14 + NH, 180, 72, AM, 0);
+
+  // 5 workflow boxes at bottom
+  const wfs = [
+    { label: 'WF1', sub: 'Briefing', col: TL },
+    { label: 'WF2', sub: 'Contacts', col: AM },
+    { label: 'WF3', sub: 'Scoring', col: '#a0522d' },
+    { label: 'WF4', sub: 'AI Anlys', col: TL },
+    { label: 'WF5', sub: 'Email', col: AM },
+  ];
+  const bw = 56, bh = 40, startX = 12, gap = 6;
+  const oy = 150;
+
+  wfs.forEach((wf, i) => {
+    const bx = startX + i * (bw + gap);
+    const by = oy;
+    const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    const sh = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    sh.setAttribute('x', bx+2); sh.setAttribute('y', by+2); sh.setAttribute('width', bw); sh.setAttribute('height', bh); sh.setAttribute('rx', 6); sh.setAttribute('fill', 'rgba(14,11,7,0.06)'); g.appendChild(sh);
+    const r = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    r.setAttribute('x', bx); r.setAttribute('y', by); r.setAttribute('width', bw); r.setAttribute('height', bh); r.setAttribute('rx', 6); r.setAttribute('fill', WH); r.setAttribute('stroke', wf.col); r.setAttribute('stroke-width', '1.2'); g.appendChild(r);
+    const bar = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    bar.setAttribute('x', bx); bar.setAttribute('y', by); bar.setAttribute('width', bw); bar.setAttribute('height', 4); bar.setAttribute('rx', 4); bar.setAttribute('fill', wf.col); g.appendChild(bar);
+    const t1 = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    t1.setAttribute('x', bx+bw/2); t1.setAttribute('y', by+18); t1.setAttribute('text-anchor', 'middle'); t1.setAttribute('font-size', '9'); t1.setAttribute('font-weight', '500'); t1.setAttribute('font-family', 'DM Mono,monospace'); t1.setAttribute('fill', wf.col); t1.textContent = wf.label; g.appendChild(t1);
+    const t2 = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    t2.setAttribute('x', bx+bw/2); t2.setAttribute('y', by+30); t2.setAttribute('text-anchor', 'middle'); t2.setAttribute('font-size', '7.5'); t2.setAttribute('font-family', 'DM Mono,monospace'); t2.setAttribute('fill', MU); t2.textContent = wf.sub; g.appendChild(t2);
+    svg.appendChild(g);
+
+    // Connection from orchestrator
+    const fx = bx + bw / 2;
+    drawConn(svg, 180, 72 + NH, fx, oy, wf.col, i * 0.28 + 0.4);
+  });
+
+  // Status row
+  const sy = 205;
+  const statusR = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+  statusR.setAttribute('x', 8); statusR.setAttribute('y', sy - 2); statusR.setAttribute('width', 344); statusR.setAttribute('height', 18); statusR.setAttribute('rx', 4); statusR.setAttribute('fill', 'rgba(200,97,42,0.05)'); svg.appendChild(statusR);
+  const statuses = ['Running', 'Active', 'Queued', 'Analysing', 'Sent'];
+  const statCols = [TL, AM, '#a0522d', TL, AM];
+  wfs.forEach((wf, i) => {
+    const bx = startX + i * (bw + gap);
+    const dc = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    dc.setAttribute('cx', bx + 7); dc.setAttribute('cy', sy + 7); dc.setAttribute('r', '3'); dc.setAttribute('fill', statCols[i]); svg.appendChild(dc);
+    const dt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    dt.setAttribute('x', bx + 13); dt.setAttribute('y', sy + 12); dt.setAttribute('font-size', '7'); dt.setAttribute('font-family', 'DM Mono,monospace'); dt.setAttribute('fill', MU); dt.textContent = statuses[i]; svg.appendChild(dt);
+  });
+
+  // Legend
+  const lg = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  lg.setAttribute('x', 180); lg.setAttribute('y', 242); lg.setAttribute('text-anchor', 'middle'); lg.setAttribute('font-size', '8.5'); lg.setAttribute('font-family', 'DM Mono,monospace'); lg.setAttribute('fill', MU); lg.textContent = 'All 5 workflows triggered from one Streamlit UI'; svg.appendChild(lg);
+}
+
+/* ── N8N FLOW 3: Web Analytics Funnel ── */
+function buildN8N3() {
+  const svg = document.getElementById('n8n3');
+  if (!svg) return;
+  mkDefs(svg);
+  const stages = [
+    { label: 'Acquisition', sub: 'signups · source · UTM', col: AM, pct: 100 },
+    { label: 'Activation', sub: 'onboarding · first action', col: TL, pct: 73 },
+    { label: 'Engagement', sub: 'sessions · bounce · depth', col: '#2980b9', pct: 49 },
+    { label: 'Retention', sub: 'D7 · D30 · churn rate', col: '#a0522d', pct: 30 },
+    { label: 'Revenue', sub: 'conversion · LTV · ARPU', col: '#2d9e6e', pct: 16 },
+  ];
+  const maxW = 330, minW = 80, bh = 36, gap = 8, sy = 8;
+
+  stages.forEach((s, i) => {
+    const bw = minW + (maxW - minW) * (s.pct / 100);
+    const x = (360 - bw) / 2, y = sy + i * (bh + gap);
+    // Shadow
+    const sh = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    sh.setAttribute('x', x+2); sh.setAttribute('y', y+2); sh.setAttribute('width', bw); sh.setAttribute('height', bh); sh.setAttribute('rx', 6); sh.setAttribute('fill', 'rgba(14,11,7,0.05)'); svg.appendChild(sh);
+    // Bar
+    const r = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    r.setAttribute('x', x); r.setAttribute('y', y); r.setAttribute('width', bw); r.setAttribute('height', bh); r.setAttribute('rx', 6); r.setAttribute('fill', WH); r.setAttribute('stroke', s.col); r.setAttribute('stroke-width', '1.2'); svg.appendChild(r);
+    // Left bar
+    const lb = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    lb.setAttribute('x', x); lb.setAttribute('y', y); lb.setAttribute('width', 4); lb.setAttribute('height', bh); lb.setAttribute('rx', 4); lb.setAttribute('fill', s.col); svg.appendChild(lb);
+    // Label
+    const t1 = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    t1.setAttribute('x', x + 12); t1.setAttribute('y', y + 13); t1.setAttribute('font-size', '9'); t1.setAttribute('font-weight', '500'); t1.setAttribute('font-family', 'DM Mono,monospace'); t1.setAttribute('fill', s.col); t1.textContent = s.label; svg.appendChild(t1);
+    const t2 = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    t2.setAttribute('x', x + 12); t2.setAttribute('y', y + 25); t2.setAttribute('font-size', '7.5'); t2.setAttribute('font-family', 'DM Mono,monospace'); t2.setAttribute('fill', MU); t2.textContent = s.sub; svg.appendChild(t2);
+    // Pct
+    const tp = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    tp.setAttribute('x', x + bw - 8); tp.setAttribute('y', y + bh/2 + 1); tp.setAttribute('text-anchor', 'end'); tp.setAttribute('dominant-baseline', 'central'); tp.setAttribute('font-size', '9'); tp.setAttribute('font-weight', '500'); tp.setAttribute('font-family', 'DM Mono,monospace'); tp.setAttribute('fill', s.col + 'cc'); tp.textContent = s.pct + '%'; svg.appendChild(tp);
+
+    // Animated drop dot between stages
+    if (i < stages.length - 1) {
+      const ny = sy + (i + 1) * (bh + gap);
+      const nextBW = minW + (maxW - minW) * (stages[i + 1].pct / 100);
+      for (let j = 0; j < 2; j++) {
+        const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        dot.setAttribute('r', '2.5');
+        dot.setAttribute('fill', s.col);
+        svg.appendChild(dot);
+        const anim = document.createElementNS('http://www.w3.org/2000/svg', 'animateMotion');
+        anim.setAttribute('dur', '1.4s');
+        anim.setAttribute('repeatCount', 'indefinite');
+        anim.setAttribute('begin', (i * 0.3 + j * 0.7) + 's');
+        anim.setAttribute('path', `M${180},${y + bh} L${180},${ny}`);
+        dot.appendChild(anim);
+      }
+    }
+  });
+}
+
+/* ── Chart.js Dashboard Charts ── */
+function loadCharts() {
+  const s = document.createElement('script');
+  s.src = 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js';
+  s.onload = () => {
+    Chart.defaults.color = 'rgba(122,111,98,0.6)';
+    Chart.defaults.borderColor = 'rgba(14,11,7,0.07)';
+    function bar(id, labels, data, colors) {
+      const el = document.getElementById(id); if (!el) return;
+      el.style.height = '65px';
+      new Chart(el, { type: 'bar', data: { labels, datasets: [{ data, backgroundColor: colors, borderRadius: 3, borderWidth: 0 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { enabled: false } },
+          scales: { x: { ticks: { font: { size: 7 }, color: 'rgba(122,111,98,0.5)', maxRotation: 0 }, grid: { display: false } }, y: { display: false } } } });
+    }
+    function line(id, data, color) {
+      const el = document.getElementById(id); if (!el) return;
+      el.style.height = '65px';
+      new Chart(el, { type: 'line', data: { labels: data.map((_, i) => i), datasets: [{ data, borderColor: color, borderWidth: 2, fill: { target: 'origin', above: color + '14' }, pointRadius: 0, tension: 0.4 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { enabled: false } },
+          scales: { x: { display: false }, y: { display: false } } } });
+    }
+    bar('dc1', ['N-Delhi', 'W-Mumbai', 'S-Blr', 'E-Kol', 'Central', 'NE'], [1120, 980, 870, 640, 520, 380],
+      ['rgba(200,97,42,0.8)', 'rgba(200,97,42,0.75)', 'rgba(200,97,42,0.7)', 'rgba(212,76,58,0.7)', 'rgba(200,97,42,0.6)', 'rgba(200,97,42,0.55)']);
+    line('dc2', [42, 50, 47, 62, 68, 75, 80, 85, 90, 88, 92, 95], '#2d9e6e');
+    bar('dc3', ['BLR-DEL', 'BOM-BLR', 'DEL-BOM', 'HYD-MAA', 'CCU-DEL', 'BLR-HYD', 'MAA-BOM', 'HYD-BOM'], [94, 91, 88, 84, 76, 73, 65, 61],
+      ['#2d9e6e', '#2d9e6e', '#2d9e6ecc', '#2d9e6e99', 'rgba(200,97,42,0.75)', 'rgba(200,97,42,0.65)', 'rgba(212,76,58,0.7)', 'rgba(212,76,58,0.65)']);
+    line('dc4', [50, 46, 48, 44, 40, 36, 32, 28, 24, 22, 18, 14], '#e8855a');
+  };
+  document.head.appendChild(s);
+}
+
+/* Smooth scroll helper — prevents any URL/redirect issues */
+function scrollTo(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+/* Fade-in scroll observer */
+const io = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 60); io.unobserve(e.target); }
+  });
+}, { threshold: 0.01, rootMargin: '0px 0px -20px 0px' });
+document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+document.querySelectorAll('.hero-stats .stat-card').forEach((el, i) => {
+  el.style.transitionDelay = `${i * 0.1}s`;
+  setTimeout(() => el.classList.add('visible'), 250 + i * 110);
+});
+
+window.addEventListener('load', () => { buildN8N1(); buildN8N2(); buildN8N3(); loadCharts(); });
+window.addEventListener('resize', () => setTimeout(() => { buildN8N1(); buildN8N2(); buildN8N3(); }, 200));
+</script>
+</body>
+</html>
